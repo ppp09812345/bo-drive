@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'share',
     'lib.apps.LibConfig',
     'django.contrib.admin',
     'django.contrib.auth',

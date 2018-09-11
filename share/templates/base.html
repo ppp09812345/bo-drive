@@ -52,7 +52,7 @@
 
             <div class="col-sm-6">
                 <div class="logo-desc wow bounceInRight" data-wow-delay="0.4s">
-                 <a href="{% url "MY" %}"> <span class="logo-desc-text" href="/"><i class="iconfont">&#xe619;</i>Manage my files</span></a>
+            <a href="{% url 'share:MY' %}"><span class="logo-desc-text" href="/"><i class="iconfont">&#xe619;</i>Manage my files</span></a>
 </div>
             </div>
 
@@ -73,7 +73,7 @@
             <div class="up-container wow bounceIn" data-wow-delay="0.9s">
 
                 <!-- search file -->
-                <form id="search" action="{% url "search" %}" method="get">
+                <form id="search" action="{% url 'share:search' %}" method="get">
                     <div class="input-box">
                         <input id="files-info" name="kw" type="text" onkeydown="if(event.keyCode==13){return false;}" autocomplete="off" placeholder="Search File" />
                         <span class="iconfont search-text-icon">&#xe714;</span>
@@ -81,7 +81,7 @@
                 </form><!-- END search file -->
 
                 <!-- upload files -->
-                <form id="form" action="/" method="post" runat="server" enctype="multipart/form-data">
+                <form id="form" action="{% url 'share:icode' %}" method="post" runat="server" enctype="multipart/form-data">
                     <input id="files" name="file" multiple="multiple" style="display: none;" class="file-addr" type="file" />
                   {% csrf_token %}
                     <input id="bt" type="button" value="Upload File" />

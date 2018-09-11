@@ -81,7 +81,7 @@
                 </form><!-- END search file -->
 
                 <!-- upload files -->
-                <form id="form" action="{% url 'share:icode' %}" method="post" runat="server" enctype="multipart/form-data">
+                <form id="form" action="/share/" method="post" runat="server" enctype="multipart/form-data">
                     <input id="files" name="file" multiple="multiple" style="display: none;" class="file-addr" type="file" />
                   {% csrf_token %}
                     <input id="bt" type="button" value="Upload File" />

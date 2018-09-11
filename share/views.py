@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Upload
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect,HttpResponse
 import random
 import string
 import datetime
+import json
 # Create your views here.
 
 
@@ -32,7 +33,7 @@ class HomeView(View):
                 PCIP=str(request.META['REMOTE_ADDR']),  # 获取上传文件的用户ip
             )
             u.save()  # 存储数据库
-            return HttpResponsePermanentRedirect("/s/" + code)
+            return HttpResponsePermanentRedirect("/share/s/" + code)
             # 使用 HttpResponsePermanentRedirect 重定向到展示文件的页面.这里的 code 唯一标示一个文件。
 
 class DisplayView(View): #展示文件的视图类
@@ -49,7 +50,7 @@ class DisplayView(View): #展示文件的视图类
 class MyView(View): #用户管理类
     def get(self,request):
         IP = request.META['REMOTE_ADDR'] #获取用户IP
-        u = Upload.objects.filter(PCMAC=str(IP))  #查找数据
+        u = Upload.objects.filter(PCIP=str(IP))  #查找数据
         for i in u:
             i.DownloadDocount +=1 #访问量
             i.save()
@@ -68,7 +69,7 @@ class SearchView(View):
                 data[i]['download'] = u[i].DownloadDocount
                 data[i]['filename'] = u[i].name
                 data[i]['id'] = u[i].id
-                data[i]['ip'] = u[i].str(u[i].PCIP)
+                data[i]['ip'] = str(u[i].PCIP)
                 data[i]['size'] = u[i].Filesize
                 data[i]['time'] = str(u[i].Datatime.strftime('%Y-%m-%d %H:%M')) #格式化时间
                 data[i]['key'] = u[i].code
